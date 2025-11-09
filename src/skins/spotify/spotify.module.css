@@ -1,6 +1,7 @@
 .screen {
   width: 100%;
   height: auto;
+  padding: 31px;
   background: #121212;
   color: #fff;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -12,28 +13,18 @@
   height: 72px;
   display: flex;
   align-items: center;
-  padding: 8px 16px 0;
   gap: 12px;
   position: relative;
 }
 
-.navIcon {
-  width: 28px;
-  display: grid;
-  place-items: center;
-  font-size: 18px;
-  opacity: 0.9;
-}
 
 .topIcons {
   position: absolute;
-  top: 8px;
-  left: 16px;
-  right: 16px;
-  height: 24px;
-  width: calc(100% - 32px);
-  max-width: calc(100% - 32px);
-  object-fit: contain;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
   display: block;
   pointer-events: none;
   opacity: 0.98;

@@ -37,7 +37,6 @@ export default function SpotifyMobile({ imageUrl, meta }) {
       <div className={styles.screen}>
         <div className={styles.navBar}>
           <img className={styles.topIcons} src={topIcons} alt="" aria-hidden />
-          <div className={styles.navIcon} aria-hidden />
           <div className={styles.navCenter}>
             <div className={styles.subHeader}>Playing From Your Library</div>
             <div
@@ -54,7 +53,6 @@ export default function SpotifyMobile({ imageUrl, meta }) {
               {albumTitle || 'Album Name'}
             </div>
           </div>
-          <div className={styles.navIcon} aria-hidden />
         </div>
 
         <div className={styles.artWrap}>
