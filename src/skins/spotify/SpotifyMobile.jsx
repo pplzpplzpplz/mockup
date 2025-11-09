@@ -1,17 +1,25 @@
 import ServiceFrame from '../ServiceFrame'
 import styles from './spotify.module.css'
+import topIcons from '../../assets/Top Icons.png'
+import playBar from '../../assets/Play Bar.png'
+import playIcons from '../../assets/Play Icons.png'
+import shareIcons from '../../assets/Share Icons.png'
 
 export default function SpotifyMobile({ imageUrl, meta }) {
   const artSrc = imageUrl
-  const { songTitle = 'Song Title', artistName = 'Artist Name', albumTitle = 'Album Name' } = meta || {}
+  const { songTitle = 'Song Name', artistName = 'Artist Name', albumTitle = 'Playlist Name' } = meta || {}
 
   return (
-    <ServiceFrame width={390} height={844} background="#121212">
+    <ServiceFrame width={390} height={710} background="#121212">
       <div className={styles.screen}>
-        <div className={styles.topBar}>
-          <div style={{ width: 24 }} />
-          <div className={styles.titleNowPlaying}>Now Playing</div>
-          <div style={{ width: 24 }} />
+        <div className={styles.navBar}>
+          <img className={styles.topIcons} src={topIcons} alt="" aria-hidden />
+          <div className={styles.navIcon} aria-hidden />
+          <div className={styles.navCenter}>
+            <div className={styles.subHeader}>Playing From Your Library</div>
+            <div className={styles.playlistTitle}>{albumTitle || 'Playlist Name'}</div>
+          </div>
+          <div className={styles.navIcon} aria-hidden />
         </div>
 
         <div className={styles.artWrap}>
@@ -23,22 +31,11 @@ export default function SpotifyMobile({ imageUrl, meta }) {
         <div className={styles.meta}>
           <div className={styles.songTitle}>{songTitle || 'Song Title'}</div>
           <div className={styles.artist}>{artistName || 'Artist Name'}</div>
-          {albumTitle ? <div className={styles.album}>{albumTitle}</div> : null}
         </div>
 
-        <div className={styles.spacer} />
-
-        <div className={styles.timeline}>
-          <div className={styles.bar}>
-            <div className={styles.barFill} />
-          </div>
-        </div>
-
-        <div className={styles.controls}>
-          <div className={styles.ctl} aria-hidden>⏮</div>
-          <div className={`${styles.ctl} ${styles.play}`} aria-hidden>▶</div>
-          <div className={styles.ctl} aria-hidden>⏭</div>
-        </div>
+        <div className={styles.playBar}><img src={playBar} alt="Playback bar" /></div>
+        <div className={styles.playIconsRow}><img src={playIcons} alt="Playback controls" /></div>
+        <div className={styles.shareIconsRow}><img src={shareIcons} alt="Share and queue controls" /></div>
       </div>
     </ServiceFrame>
   )

@@ -1,11 +1,11 @@
-export default function ServiceFrame({ children, width = 390, height = 844, background = '#000' }) {
+export default function ServiceFrame({ children, width = 390, height = null, background = '#000' }) {
   // A simple device-like frame; size roughly like an iPhone 13/14 viewport
   return (
     <div
       style={{
         display: 'inline-block',
         background: '#0a0a0a',
-        padding: 16,
+        padding: 0,
         borderRadius: 28,
         boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
       }}
@@ -13,7 +13,7 @@ export default function ServiceFrame({ children, width = 390, height = 844, back
       <div
         style={{
           width,
-          height,
+          ...(height != null ? { height } : {}),
           borderRadius: 22,
           overflow: 'hidden',
           background,

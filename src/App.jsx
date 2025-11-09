@@ -13,7 +13,7 @@ function App() {
       <div style={{ maxWidth: 1100, margin: '24px auto', padding: '0 16px' }}>
         <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
           <h1 style={{ fontSize: 22, margin: 0 }}>Album Art Streaming Mockups</h1>
-          <div style={{ fontSize: 12, opacity: 0.7 }}>v1 • Client-only</div>
+          <div />
         </header>
         <div className="twoColLayout">
           <div>

@@ -14,10 +14,10 @@ const PreviewStage = forwardRef(function PreviewStage(props, ref) {
       ref={ref}
       style={{
         display: 'grid',
-        placeItems: 'center',
-        padding: 16,
-        background: '#0b0b0b',
-        borderRadius: 12,
+        placeItems: 'start',
+        padding: 0,
+        background: 'transparent',
+        borderRadius: 0,
       }}
     >
       {Comp ? <Comp imageUrl={imageUrl} meta={meta} /> : <div>No view</div>}
