@@ -59,6 +59,12 @@
   font-weight: 700;
 }
 
+.editable {
+  cursor: text;
+  outline: none;
+  user-select: text;
+}
+
 .artWrap {
   padding: 16px;
 }
@@ -71,6 +77,11 @@
   overflow: hidden;
   display: grid;
   place-items: center;
+}
+
+.artClickable {
+  cursor: pointer;
+  outline: none;
 }
 
 .art img {

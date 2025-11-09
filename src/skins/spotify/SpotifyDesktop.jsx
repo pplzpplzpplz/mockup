@@ -1,8 +1,31 @@
 import styles from './spotify.module.css'
+import { useRef, useCallback } from 'react'
+import { useMockup } from '../../state/MockupProvider'
+import { makeSquareImage } from '../../utils/imageFit'
 
 export default function SpotifyDesktop({ imageUrl, meta }) {
   const artSrc = imageUrl
   const { songTitle = 'Song Title', artistName = 'Artist Name', albumTitle = 'Album Name' } = meta || {}
+  const { actions } = useMockup()
+  const inputRef = useRef(null)
+
+  const onFiles = useCallback(async (files) => {
+    const file = files && files[0]
+    if (!file || !file.type.startsWith('image/')) return
+    const objectUrl = URL.createObjectURL(file)
+    actions.setImageFile({ file, objectUrl })
+    try {
+      const square = await makeSquareImage(objectUrl, { padColor: '#111' })
+      actions.setSquareDataUrl(square)
+    } catch (e) { /* noop */ }
+  }, [actions])
+
+  const onDrop = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const files = e.dataTransfer?.files
+    if (files && files.length > 0) onFiles(files)
+  }, [onFiles])
 
   return (
     <div
@@ -19,12 +42,42 @@ export default function SpotifyDesktop({ imageUrl, meta }) {
       }}
     >
       <div style={{ padding: 24, display: 'grid', gridTemplateRows: '1fr auto auto', gap: 16 }}>
-        <div className={styles.art} style={{ borderRadius: 8 }}>
-          {artSrc ? <img src={artSrc} alt="Album art" /> : <div style={{ color: '#666' }}>No art</div>}
+        <div
+          className={styles.art}
+          style={{ borderRadius: 8, cursor: 'pointer' }}
+          onClick={() => inputRef.current?.click()}
+          onDrop={onDrop}
+          onDragOver={(e) => { e.preventDefault(); e.stopPropagation() }}
+        >
+          {artSrc ? <img src={artSrc} alt="Album art" /> : <div style={{ color: '#666' }}>Tap or drag & drop to add art</div>}
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={(e) => onFiles(e.target.files)}
+            capture="environment"
+          />
         </div>
         <div>
-          <div className={styles.songTitle} style={{ fontSize: 20 }}>{songTitle || 'Song Title'}</div>
-          <div className={styles.artist} style={{ fontSize: 14 }}>{artistName || 'Artist Name'}</div>
+          <div
+            className={styles.songTitle}
+            style={{ fontSize: 20 }}
+            contentEditable
+            suppressContentEditableWarning
+            onInput={(e) => actions.setMeta({ songTitle: e.currentTarget.textContent || '' })}
+          >
+            {songTitle || 'Song Title'}
+          </div>
+          <div
+            className={styles.artist}
+            style={{ fontSize: 14 }}
+            contentEditable
+            suppressContentEditableWarning
+            onInput={(e) => actions.setMeta({ artistName: e.currentTarget.textContent || '' })}
+          >
+            {artistName || 'Artist Name'}
+          </div>
           {albumTitle ? <div className={styles.album}>{albumTitle}</div> : null}
         </div>
         <div className={styles.timeline}>
